@@ -1,0 +1,10 @@
+<div class="card" *ngIf="image">
+    <div class="card-header">
+        <h2>{{image.name}}</h2>
+    </div>
+    <div class="card-body row">
+        <div class="col-4">
+            <img class="col-12" src="https://image-repository-kush.herokuapp.com/{{image.path}}">
+        </div>
+    </div>
+</div>

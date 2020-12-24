@@ -8,18 +8,25 @@ import { ImagePost } from '../models/image-post.model';
   providedIn: 'root'
 })
 export class ImageService {
+  apiPath: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.apiPath = "https://image-repository-kush.herokuapp.com";
+    //this.apiPath = "http://localhost:3000";
+  }
 
   getImages(): Observable<any> {
-    return this.http.get<any>("https://image-repository-kush.herokuapp.com/image");
+    return this.http.get<any>(this.apiPath+"/image");
+  }
+
+  getImage(id: string): Observable<any> {
+    return this.http.get<any>(this.apiPath+"/image/"+id);
   }
 
   postImages(image: ImagePost) {
     const formData: FormData = new FormData();
     formData.append('imageUpload', image.imageUpload);
     formData.append('name', image.name);
-    formData.append('price', image.price.toString());
-    return this.http.post("https://image-repository-kush.herokuapp.com/image", formData);
+    return this.http.post(this.apiPath+"/image", formData);
   }
 }
