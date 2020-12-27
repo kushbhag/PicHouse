@@ -11,6 +11,7 @@ import { AddImageComponent } from './components/add-image/add-image.component';
 import { ImageComponent } from './components/image/image.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LoginComponent } from './components/login/login.component';
     ReactiveFormsModule
   ],
   providers: [
-    ImageService
+    ImageService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
