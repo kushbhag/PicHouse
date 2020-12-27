@@ -27,6 +27,7 @@ export class ImageService {
     const formData: FormData = new FormData();
     formData.append('imageUpload', image.imageUpload);
     formData.append('name', image.name);
+    formData.append('userId', image.userId);
     return this.http.post(this.apiPath+"/image", formData);
   }
 }

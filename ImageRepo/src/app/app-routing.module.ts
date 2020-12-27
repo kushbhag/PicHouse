@@ -5,13 +5,16 @@ import { HomeComponent } from './components/home/home.component';
 import { ImageComponent } from './components/image/image.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { LoggedinGuard } from './guards/loggedin.guard';
+import { LoggedoutGuard } from './guards/loggedout.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'add-image', component: AddImageComponent },
+  { path: 'add-image', component: AddImageComponent, canActivate: [LoggedinGuard] },
   { path: 'image/:id', component: ImageComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent }
+  { path: 'login', component: LoginComponent, canActivate: [LoggedoutGuard] },
+  { path: 'signup', component: SignupComponent, canActivate: [LoggedoutGuard] },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

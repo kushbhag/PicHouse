@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ImagePost } from 'src/app/models/image-post.model';
 import { ImageService } from 'src/app/services/image.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-add-image',
@@ -13,7 +15,9 @@ export class AddImageComponent implements OnInit {
   imageForm: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private imageService: ImageService) { }
+              private imageService: ImageService,
+              private userService: UserService,
+              private router: Router) { }
 
   get f(){
     return this.imageForm.controls;
@@ -28,7 +32,6 @@ export class AddImageComponent implements OnInit {
   }
 
   onFileChange(event) {
-    console.log(event.target.files);
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.imageForm.patchValue({
@@ -39,9 +42,11 @@ export class AddImageComponent implements OnInit {
 
   submit() {
     // console.log(this.imageForm.get('image').value);
-    var im = new ImagePost(this.imageForm.get('name').value, this.imageForm.get('image').value);
+    var im = new ImagePost(this.imageForm.get('name').value,
+                           this.imageForm.get('image').value,
+                           this.userService.user._id);
     this.imageService.postImages(im).subscribe(res => {
-      console.log(res);
+      this.router.navigate(['/home']);
     });
   }
 

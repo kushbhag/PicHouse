@@ -12,6 +12,7 @@ import { ImageComponent } from './components/image/image.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserService } from './services/user.service';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UserService } from './services/user.service';
     AddImageComponent,
     ImageComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

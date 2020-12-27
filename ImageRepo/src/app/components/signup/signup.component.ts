@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,11 +10,12 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
+  alertMessage: string;
   signUpForm: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private userService: UserService) { }
+              private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
@@ -28,15 +30,20 @@ export class SignupComponent implements OnInit {
   submit(): void {
     const user = new User();
 
-    user.password = this.signUpForm.get('username').value;
+    user.password = this.signUpForm.get('password').value;
     if (user.password !== this.signUpForm.get('confirmPassword').value) {
       return;
     }
     user.username = this.signUpForm.get('username').value;
     user.firstName = this.signUpForm.get('firstName').value;
     user.lastName = this.signUpForm.get('lastName').value;
-    this.userService.submitUser(user).subscribe(v => {
-      console.log(v);
+    this.userService.submitUser(user).subscribe(u => {
+      this.userService.addUser(u.user);
+      this.router.navigate(['/home']);
+    }, err => {
+      if (err.status === 401) {
+        this.alertMessage = "Username is taken";
+      }
     });
   }
 

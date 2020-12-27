@@ -26,6 +26,7 @@
                 <label for="lastName">Last Name: </label>
                 <input type="text" class="form-control" id="lastName" placeholder="Last Name" formControlName="lastName">
             </div>
+            <div *ngIf="alertMessage" class="alert alert-danger" role="alert">{{alertMessage}}</div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   signUpForm: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private userService: UserService) { }
+              private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
@@ -27,8 +29,10 @@ export class LoginComponent implements OnInit {
 
     user.username = this.signUpForm.get('username').value;
     user.password = this.signUpForm.get('password').value;
-    this.userService.loginUser(user).subscribe(v => {
-      console.log(v);
+    this.userService.loginUser(user).subscribe(u => {
+      localStorage.setItem('user', JSON.stringify(u));
+      this.userService.user = u;
+      this.router.navigate(['/home']);
     }, err => {
       if (err.status === 401) {
          this.alertMessage = "Invalid Password";
