@@ -14,7 +14,7 @@ export class UserService {
   constructor(private http: HttpClient,
               private router: Router) {
     this.apiPath = "https://image-repository-kush.herokuapp.com";
-    this.apiPath = "http://localhost:3000";
+    // this.apiPath = "http://localhost:3000";
     if (this.loggedIn()) {
       const u = JSON.parse(localStorage.getItem('user'));
       this.user = new User();

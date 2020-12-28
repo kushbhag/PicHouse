@@ -43,6 +43,7 @@ export class AddImageComponent implements OnInit {
   submit() {
     // console.log(this.imageForm.get('image').value);
     var im = new ImagePost(this.imageForm.get('name').value,
+                           this.imageForm.get('public').value,
                            this.imageForm.get('image').value,
                            this.userService.user._id);
     this.imageService.postImages(im).subscribe(res => {

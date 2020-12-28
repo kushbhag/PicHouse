@@ -1,0 +1,19 @@
+<div class="card" *ngIf="images && this.userService.user">
+    <div class="card-header col-10 center">
+        <h2 style="text-align: center;">{{userService.user.firstName}} {{userService.user.lastName}}</h2>
+        <h6 style="text-align: center;">These are a list of all your private and public images</h6>
+    </div>
+    <div class="card-body col-10 center">
+        <div *ngFor="let image of images">
+            <div class="row">
+                <img class="col-9" src="https://image-repository-kush.herokuapp.com/{{image.path}}">
+                <div class="col-3">
+                    <h4>{{image.name}}</h4>
+                    <h4 *ngIf="image.public">Public Image</h4>
+                    <h4 *ngIf="!image.public">Private Image</h4>
+                    <button type="button" class="btn btn-danger" (click)="deleteImage(image._id)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
