@@ -11,9 +11,10 @@ import { UserService } from './user.service';
 export class ImageService {
   apiPath: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private userService: UserService) {
     this.apiPath = "https://image-repository-kush.herokuapp.com";
-    // this.apiPath = "http://localhost:3000";
+    this.apiPath = "http://localhost:3000";
   }
 
   getImages(): Observable<any> {
@@ -34,10 +35,18 @@ export class ImageService {
     formData.append('name', image.name);
     formData.append('public', image.public.toString());
     formData.append('userId', image.userId);
-    return this.http.post(this.apiPath+"/image", formData);
+    return this.http.post(this.apiPath+"/image", formData, {
+      headers: {
+        Authorization: "Bearer " + this.userService.accessToken
+      }
+    });
   }
 
   deleteImage(imageId: string, userId: string) {
-    return this.http.delete(this.apiPath + "/image/" + imageId + "/" + userId);
+    return this.http.delete(this.apiPath + "/image/" + imageId + "/" + userId, {
+      headers: {
+        Authorization: "Bearer " + this.userService.accessToken
+      }
+    });
   }
 }

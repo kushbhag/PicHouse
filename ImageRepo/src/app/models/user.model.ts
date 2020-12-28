@@ -1,7 +1,10 @@
 export class User {
-    _id: string;
+    // Used in Login
     username: string;
     password: string;
+
+    // Used in GET
+    _id: string;
     firstName: string;
     lastName: string;
 }

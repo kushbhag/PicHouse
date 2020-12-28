@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
     user.password = this.signUpForm.get('password').value;
     this.userService.loginUser(user).subscribe(u => {
       localStorage.setItem('user', JSON.stringify(u));
-      this.userService.user = u;
+      this.userService.user = u.user;
+      this.userService.accessToken = u.accessToken;
+      this.userService.refreshToken = u.refreshToken;
       this.router.navigate(['/home']);
     }, err => {
       if (err.status === 401) {

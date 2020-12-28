@@ -38,8 +38,7 @@ export class SignupComponent implements OnInit {
     user.firstName = this.signUpForm.get('firstName').value;
     user.lastName = this.signUpForm.get('lastName').value;
     this.userService.submitUser(user).subscribe(u => {
-      this.userService.addUser(u.user);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/login']);
     }, err => {
       if (err.status === 401) {
         this.alertMessage = "Username is taken";
