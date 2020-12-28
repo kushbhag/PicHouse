@@ -22,16 +22,16 @@
         </ul>
         <ul class="navbar-nav navbar-right">
             <li class="nav-item row">
-                <a *ngIf="!this.userService.loggedIn()" class="nav-link" [routerLink]="'/signup'">
+                <a *ngIf="!this.userService.loggedIn()" class="ml-3 nav-link" [routerLink]="'/signup'">
                     Sign Up
                 </a>
-                <a *ngIf="!this.userService.loggedIn()" class="nav-link pr-3" [routerLink]="'/login'">
+                <a *ngIf="!this.userService.loggedIn()" class="ml-3 nav-link pr-3" [routerLink]="'/login'">
                     Log In
                 </a>
-                <a *ngIf="this.userService.loggedIn()" class="nav-link" (click)="this.userService.logOut()" href="javascript:void(0)">
+                <a *ngIf="this.userService.loggedIn()" class="ml-3 nav-link" (click)="this.userService.logOut()" href="javascript:void(0)">
                     Log Out
                 </a>
-                <a *ngIf="this.userService.loggedIn() && this.userService.user" class="nav-link" [routerLink]="'/user'">
+                <a *ngIf="this.userService.loggedIn() && this.userService.user" class="ml-3 nav-link" [routerLink]="'/user'">
                     Logged in as {{this.userService.user.firstName}}
                 </a>
             </li>
