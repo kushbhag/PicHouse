@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AddImageComponent implements OnInit {
 
+  alertMessage: string;
   imageForm: FormGroup;
 
   constructor(private fb: FormBuilder,
@@ -48,6 +49,8 @@ export class AddImageComponent implements OnInit {
                            this.userService.user._id);
     this.imageService.postImages(im).subscribe(res => {
       this.router.navigate(['/home']);
+    }, err => {
+      this.alertMessage = "Sorry, an error occurred within the server, please try it again in 5 seconds";
     });
   }
 

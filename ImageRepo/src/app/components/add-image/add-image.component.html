@@ -21,6 +21,7 @@
             <div class="checkbox">
                 <label><input type="checkbox" formControlName="public" (checked)="true"> Public</label>
             </div>
+            <div *ngIf="alertMessage" class="alert alert-danger" role="alert">{{alertMessage}}</div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

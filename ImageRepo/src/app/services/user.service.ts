@@ -44,6 +44,15 @@ export class UserService {
     });
   }
 
+  refreshUser(): Observable<any> {
+    return this.http.post<any>(this.apiPath + "/auth/token", JSON.stringify({ refreshToken: this.refreshToken}),
+    {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    });
+  }
+
   getUser(id: string): Observable<any> {
     return this.http.get<any>(this.apiPath + "/user/" + id);
   }
@@ -54,17 +63,31 @@ export class UserService {
 
   logOut() {
     localStorage.removeItem('user');
-    this.user = null;
-    this.router.navigate(['home']);
+    this.http.delete<any>(this.apiPath+ "/auth/logout/" + this.refreshToken,
+    {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    }).subscribe(mes => {
+      this.user = null;
+      this.accessToken = undefined;
+      this.refreshToken = undefined;
+      this.router.navigate(['home']);
+    }, err => {
+      console.log("An error occurred trying to log out");
+    })
   }
 
-  addUser(user: User) {
+  addUser(user: User, accessToken: string, refreshToken: string) {
     localStorage.removeItem('user');
     this.user = user;
+    this.accessToken = accessToken;
+    this.refreshToken = refreshToken;
+    console.log(accessToken);
     localStorage.setItem('user', JSON.stringify({
       user: user,
-      accessToken: this.accessToken,
-      refreshToken: this.refreshToken
+      accessToken: accessToken,
+      refreshToken: refreshToken
     }));
   }
 

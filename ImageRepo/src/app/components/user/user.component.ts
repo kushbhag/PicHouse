@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserComponent implements OnInit {
 
+  alertMessage: string;
   images: Image[] = new Array<Image>();
 
   constructor(private imageService: ImageService,
@@ -24,6 +25,8 @@ export class UserComponent implements OnInit {
   deleteImage(id: string): void {
     this.imageService.deleteImage(id, this.userService.user._id).subscribe(del => {
       this.images = this.images.filter(i => i._id !== id);
+    }, err => {
+      this.alertMessage = "Sorry, an error occurred within the server, please try it again in 5 seconds";
     });
   }
 
