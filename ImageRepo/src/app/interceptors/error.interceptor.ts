@@ -28,7 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             console.log('Refreshing User Access Token');
             this.userService.refreshUser().subscribe(
               val => {
-                console.log(val);
+                //console.log(val);
                 if (val.accessToken !== undefined) {
                   this.userService.addUser(this.userService.user, val.accessToken, this.userService.refreshToken);
                 }

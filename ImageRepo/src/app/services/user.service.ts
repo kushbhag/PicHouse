@@ -83,7 +83,7 @@ export class UserService {
     this.user = user;
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
-    console.log(accessToken);
+    //console.log(accessToken);
     localStorage.setItem('user', JSON.stringify({
       user: user,
       accessToken: accessToken,

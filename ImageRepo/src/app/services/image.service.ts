@@ -26,7 +26,11 @@ export class ImageService {
   }
 
   getUsersImages(id: string): Observable<any> {
-    return this.http.get<any>(this.apiPath+"/image/user/"+id);
+    return this.http.get<any>(this.apiPath+"/image/user/"+id, {
+      headers: {
+        Authorization: "Bearer " + this.userService.accessToken
+      }
+    });
   }
 
   postImages(image: ImagePost) {
@@ -42,8 +46,8 @@ export class ImageService {
     });
   }
 
-  deleteImage(imageId: string, userId: string) {
-    return this.http.delete(this.apiPath + "/image/" + imageId + "/" + userId, {
+  deleteImage(imageId: string) {
+    return this.http.delete(this.apiPath + "/image/" + imageId, {
       headers: {
         Authorization: "Bearer " + this.userService.accessToken
       }
