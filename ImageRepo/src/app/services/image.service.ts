@@ -14,7 +14,7 @@ export class ImageService {
   constructor(private http: HttpClient,
               private userService: UserService) {
     this.apiPath = "https://image-repository-kush.herokuapp.com";
-    this.apiPath = "http://localhost:3000";
+    //this.apiPath = "http://localhost:3000";
   }
 
   getImages(): Observable<any> {
