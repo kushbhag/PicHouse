@@ -28,22 +28,24 @@ export class SignupComponent implements OnInit {
   }
 
   submit(): void {
-    const user = new User();
-
-    user.password = this.signUpForm.get('password').value;
-    if (user.password !== this.signUpForm.get('confirmPassword').value) {
-      return;
-    }
-    user.username = this.signUpForm.get('username').value;
-    user.firstName = this.signUpForm.get('firstName').value;
-    user.lastName = this.signUpForm.get('lastName').value;
-    this.userService.submitUser(user).subscribe(u => {
-      this.router.navigate(['/login']);
-    }, err => {
-      if (err.status === 401) {
-        this.alertMessage = "Username is taken";
+    if (this.signUpForm.valid) {
+      const user = new User();
+  
+      user.password = this.signUpForm.get('password').value;
+      if (user.password !== this.signUpForm.get('confirmPassword').value) {
+        return;
       }
-    });
+      user.username = this.signUpForm.get('username').value;
+      user.firstName = this.signUpForm.get('firstName').value;
+      user.lastName = this.signUpForm.get('lastName').value;
+      this.userService.submitUser(user).subscribe(u => {
+        this.router.navigate(['/login']);
+      }, err => {
+        if (err.status === 401) {
+          this.alertMessage = "Username is taken";
+        }
+      });
+    }
   }
 
 }

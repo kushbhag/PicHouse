@@ -14,6 +14,7 @@ export class AddImageComponent implements OnInit {
 
   alertMessage: string;
   imageForm: FormGroup;
+  error = false;
 
   constructor(private fb: FormBuilder,
               private imageService: ImageService,
@@ -27,8 +28,8 @@ export class AddImageComponent implements OnInit {
   ngOnInit(): void {
     this.imageForm = this.fb.group({
       name: ['', Validators.required],
-      public: [true],
-      image: [File, Validators.required]
+      public: [false],
+      image: ['', Validators.required]
     });
   }
 
@@ -42,16 +43,25 @@ export class AddImageComponent implements OnInit {
   }
 
   submit() {
-    // console.log(this.imageForm.get('image').value);
-    var im = new ImagePost(this.imageForm.get('name').value,
-                           this.imageForm.get('public').value,
-                           this.imageForm.get('image').value,
-                           this.userService.user._id);
-    this.imageService.postImages(im).subscribe(res => {
-      this.router.navigate(['/home']);
-    }, err => {
-      this.alertMessage = "Sorry, an error occurred within the server, please try it again in 5 seconds";
-    });
+    this.error = true;
+    if (this.imageForm.get('image').value === undefined) {
+      return;
+    }
+    if (this.imageForm.valid) {
+      // console.log(this.imageForm.get('image').value);
+      var im = new ImagePost(this.imageForm.get('name').value,
+                             this.imageForm.get('public').value,
+                             this.imageForm.get('image').value,
+                             this.userService.user._id);
+      this.imageService.postImages(im).subscribe(res => {
+        this.router.navigate(['/home']);
+      }, err => {
+        this.alertMessage = "Sorry, an error occurred within the server, please try it again in 5 seconds";
+      });
+    }
   }
+
+  get name() { return this.imageForm.get('name'); }
+  get image() { return this.imageForm.get('image'); }
 
 }

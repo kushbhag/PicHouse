@@ -7,10 +7,16 @@
             <div class="form-group">
                 <label for="username">Username: </label>
                 <input type="text" class="form-control" id="username" placeholder="Username" formControlName="username">
+                <div *ngIf="username.dirty && username.invalid" class="alert alert-danger">
+                    Please enter a username
+                </div>
             </div>
             <div class="form-group">
                 <label for="password">Password: </label>
                 <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+                <div *ngIf="password.dirty && password.invalid" class="alert alert-danger">
+                    Please enter a password
+                </div>
             </div>
             <div *ngIf="alertMessage" class="alert alert-danger" role="alert">{{alertMessage}}</div>
             <button type="submit" class="btn btn-primary">Login</button>

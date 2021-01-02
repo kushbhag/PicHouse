@@ -34,7 +34,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 }
               },
               err => {
-                localStorage.removeItem('user');
+                this.userService.logOut();
               }
             );
           }

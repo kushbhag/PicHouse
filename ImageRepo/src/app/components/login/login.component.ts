@@ -25,23 +25,28 @@ export class LoginComponent implements OnInit {
   }
 
   submit(): void {
-    const user = new User();
-
-    user.username = this.signUpForm.get('username').value;
-    user.password = this.signUpForm.get('password').value;
-    this.userService.loginUser(user).subscribe(u => {
-      localStorage.setItem('user', JSON.stringify(u));
-      this.userService.user = u.user;
-      this.userService.accessToken = u.accessToken;
-      this.userService.refreshToken = u.refreshToken;
-      this.router.navigate(['/home']);
-    }, err => {
-      if (err.status === 401) {
-         this.alertMessage = "Invalid Password";
-      } else if (err.status === 404) {
-        this.alertMessage = "No user found with that user name";
-      }
-    });
+    if (this.signUpForm.valid) {
+      const user = new User();
+  
+      user.username = this.signUpForm.get('username').value;
+      user.password = this.signUpForm.get('password').value;
+      this.userService.loginUser(user).subscribe(u => {
+        localStorage.setItem('user', JSON.stringify(u));
+        this.userService.user = u.user;
+        this.userService.accessToken = u.accessToken;
+        this.userService.refreshToken = u.refreshToken;
+        this.router.navigate(['/home']);
+      }, err => {
+        if (err.status === 401) {
+           this.alertMessage = "Invalid Password";
+        } else if (err.status === 404) {
+          this.alertMessage = "No user found with that user name";
+        }
+      });
+    }
   }
+
+  get username() { return this.signUpForm.get('username'); }
+  get password() { return this.signUpForm.get('password'); }
 
 }
