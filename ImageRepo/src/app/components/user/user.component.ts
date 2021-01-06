@@ -19,6 +19,8 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.imageService.getUsersImages(this.userService.user._id).subscribe(ims => {
       this.images = ims.images;
+    }, err => {
+      this.alertMessage = "Sorry, an error occurred within the server, refresh the page again and it should work properly!";
     });
   }
 

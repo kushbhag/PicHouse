@@ -28,13 +28,15 @@ export class ErrorInterceptor implements HttpInterceptor {
             console.log('Refreshing User Access Token');
             this.userService.refreshUser().subscribe(
               val => {
-                //console.log(val);
+                console.log("Refreshed User");
                 if (val.accessToken !== undefined) {
                   this.userService.addUser(this.userService.user, val.accessToken, this.userService.refreshToken);
                 }
               },
               err => {
+                console.log("Error Refreshing");
                 this.userService.logOut();
+                this.router.navigate(['/home']);
               }
             );
           }

@@ -16,14 +16,8 @@ export class UserService {
   constructor(private http: HttpClient,
               private router: Router) {
     this.apiPath = "https://image-repository-kush.herokuapp.com";
-    //this.apiPath = "http://localhost:3000";
-    if (this.loggedIn()) {
-      const u = JSON.parse(localStorage.getItem('user'));
-      this.user = new User();
-      this.user.firstName = u.user.firstName;
-      this.user.lastName = u.user.lastName;
-      this.user._id = u.user._id;
-    }
+    // this.apiPath = "http://localhost:3000";
+    this.loadUser();
   }
 
   submitUser(user: User): Observable<any> {
@@ -89,6 +83,18 @@ export class UserService {
       accessToken: accessToken,
       refreshToken: refreshToken
     }));
+  }
+
+  loadUser() {
+    if (this.loggedIn()) {
+      const u = JSON.parse(localStorage.getItem('user'));
+      this.user = new User();
+      this.user.firstName = u.user.firstName;
+      this.user.lastName = u.user.lastName;
+      this.user._id = u.user._id;
+      this.accessToken = u.accessToken;
+      this.refreshToken = u.refreshToken;
+    }
   }
 
 }

@@ -14,7 +14,7 @@ export class ImageService {
   constructor(private http: HttpClient,
               private userService: UserService) {
     this.apiPath = "https://image-repository-kush.herokuapp.com";
-    //this.apiPath = "http://localhost:3000";
+    // this.apiPath = "http://localhost:3000";
   }
 
   getImages(): Observable<any> {
@@ -26,6 +26,9 @@ export class ImageService {
   }
 
   getUsersImages(id: string): Observable<any> {
+    if (this.userService.accessToken === undefined) {
+      this.userService.loadUser();
+    }
     return this.http.get<any>(this.apiPath+"/image/user/"+id, {
       headers: {
         Authorization: "Bearer " + this.userService.accessToken
