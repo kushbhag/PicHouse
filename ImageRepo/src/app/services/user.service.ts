@@ -52,11 +52,11 @@ export class UserService {
   }
 
   loggedIn() {
-    return !!localStorage.getItem('user');
+    return !!localStorage.getItem('userImageRepository');
   }
 
   logOut() {
-    localStorage.removeItem('user');
+    localStorage.removeItem('userImageRepository');
     this.http.delete<any>(this.apiPath+ "/auth/logout/" + this.refreshToken,
     {
       headers: {
@@ -73,12 +73,12 @@ export class UserService {
   }
 
   addUser(user: User, accessToken: string, refreshToken: string) {
-    localStorage.removeItem('user');
+    localStorage.removeItem('userImageRepository');
     this.user = user;
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
     //console.log(accessToken);
-    localStorage.setItem('user', JSON.stringify({
+    localStorage.setItem('userImageRepository', JSON.stringify({
       user: user,
       accessToken: accessToken,
       refreshToken: refreshToken
@@ -87,7 +87,7 @@ export class UserService {
 
   loadUser() {
     if (this.loggedIn()) {
-      const u = JSON.parse(localStorage.getItem('user'));
+      const u = JSON.parse(localStorage.getItem('userImageRepository'));
       this.user = new User();
       this.user.firstName = u.user.firstName;
       this.user.lastName = u.user.lastName;

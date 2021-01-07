@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       user.username = this.signUpForm.get('username').value;
       user.password = this.signUpForm.get('password').value;
       this.userService.loginUser(user).subscribe(u => {
-        localStorage.setItem('user', JSON.stringify(u));
+        localStorage.setItem('userImageRepository', JSON.stringify(u));
         this.userService.user = u.user;
         this.userService.accessToken = u.accessToken;
         this.userService.refreshToken = u.refreshToken;
