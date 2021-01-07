@@ -15,6 +15,7 @@ export class AddImageComponent implements OnInit {
   alertMessage: string;
   imageForm: FormGroup;
   error = false;
+  loading = false;
 
   constructor(private fb: FormBuilder,
               private imageService: ImageService,
@@ -49,6 +50,7 @@ export class AddImageComponent implements OnInit {
     }
     if (this.imageForm.valid) {
       // console.log(this.imageForm.get('image').value);
+      this.loading = true;
       var im = new ImagePost(this.imageForm.get('name').value,
                              this.imageForm.get('public').value,
                              this.imageForm.get('image').value,
@@ -56,6 +58,7 @@ export class AddImageComponent implements OnInit {
       this.imageService.postImages(im).subscribe(res => {
         this.router.navigate(['/home']);
       }, err => {
+        this.loading = false;
         this.alertMessage = "Sorry, an error occurred within the server, please try it again in 5 seconds";
       });
     }
