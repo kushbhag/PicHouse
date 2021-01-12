@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    this.images = [];
     this.imageService.getImages().subscribe(is => {
       this.images = is.images;
     }, err => {

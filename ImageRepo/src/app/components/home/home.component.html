@@ -11,6 +11,16 @@
                 <span style="text-align: center;"><h3>{{image.name}}</h3></span>
             </div>
         </div>
+        <div *ngIf="images.length === 0">
+            <div class="mt-5" style="position: absolute; left: 50%;
+                        transform: translate(-50%); height: 120px;
+                        width: 120px; text-align: center; top: 30%;">
+                <label for="loader">
+                    <h3>Loading</h3>
+                </label>
+                <div id="loader" class="loader"></div>
+            </div>
+        </div>
     </div>
 </div>
 
