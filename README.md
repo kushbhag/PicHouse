@@ -1,5 +1,5 @@
-<h1 align="center">📷 Image Repository 📷</h1>
-This is the documentation on how to use the Image Repository Web Application.
+<h1 align="center">📷 PicHouse 📷</h1>
+This is the documentation on how to use the PicHouse Web Application.
 This web application makes use of a backend server that you can see the source code for
 <a href="https://github.com/kushbhag/ImageRepositoryServer">here</a>. If you would like to try this web application out,
 feel free to visit <a href="https://kushbhag.github.io/ImageRepository/">here</a>.
